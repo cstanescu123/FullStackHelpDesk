@@ -12,9 +12,11 @@
 export interface Users {
   id: number
   userName: string
+  // userNames: Array<string>
   isFavorite: boolean
   ticketID: number
   tickets: any
 }
+// type userNames = Array<{text: string}>;
 
 export type PutTicket = Omit<Users, "id">;
