@@ -12,10 +12,9 @@ namespace BackEndApi.Controllers
 
     public class TicketsController : ControllerBase
     {
-        public DbSet<Tickets> Tickets { get; set; }
         private readonly ITicketContext _ticketContext;
 
-public TicketsController(ITicketContext ticketContext)
+        public TicketsController(ITicketContext ticketContext)
         {
             _ticketContext = ticketContext;
         }
@@ -23,7 +22,7 @@ public TicketsController(ITicketContext ticketContext)
         [HttpGet]
         public IActionResult GetAllTickets()
         {
-            var students = _ticketContext.GetTickets();
+            var tickets = _ticketContext.GetTickets();
 
             return Ok(_ticketContext.GetTickets());
         }
@@ -57,6 +56,7 @@ public TicketsController(ITicketContext ticketContext)
         {
             var ticket = new Tickets();
 
+            ticket.SubmitterName = postTicketRequest.SubmitterName;
             ticket.SubjectLine = postTicketRequest.SubjectLine;
             ticket.SubmitterEmail = postTicketRequest.SubmitterEmail;
             ticket.SubmittedTime = System.DateTime.UtcNow;
@@ -86,7 +86,7 @@ public TicketsController(ITicketContext ticketContext)
             ticket.Priority = postTicketRequest.Priority;
             ticket.Status = postTicketRequest.Status;
 
-            var dbTicket = _ticketContext.UpdateTicket(ticket, ticketID );
+            var dbTicket = _ticketContext.UpdateTicket(ticket, ticketID);
 
             if (dbTicket == null)
             {
